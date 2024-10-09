@@ -1,5 +1,115 @@
 [
   {
+    "ContainingType": "WFConFin.Controllers.HomeController",
+    "Method": "Index1",
+    "RelativePath": "Home/info1",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WFConFin.Controllers.HomeController",
+    "Method": "Index2",
+    "RelativePath": "Home/info2",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WFConFin.Controllers.HomeController",
+    "Method": "Index3",
+    "RelativePath": "Home/info3/{valor}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "valor",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WFConFin.Controllers.HomeController",
+    "Method": "Index4",
+    "RelativePath": "Home/info4",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "valor",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WFConFin.Controllers.HomeController",
+    "Method": "Index5",
+    "RelativePath": "Home/info5",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "valor",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WFConFin.Controllers.HomeController",
+    "Method": "Index6",
+    "RelativePath": "Home/info6",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Body",
+        "Type": "WFConFin.Controllers.Body",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WFConFin.Controllers.HomeController",
+    "Method": "PostState",
+    "RelativePath": "Home/state",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "state",
+        "Type": "WFConFin.Models.State",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WFConFin.Controllers.HomeController",
+    "Method": "GetStatus",
+    "RelativePath": "Home/states",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "WFConFin.Controllers.WeatherForecastController",
     "Method": "Get",
     "RelativePath": "WeatherForecast",

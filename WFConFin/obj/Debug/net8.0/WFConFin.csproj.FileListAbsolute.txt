@@ -30,3 +30,4 @@ D:\Users\repos\WFConFin\WFConFin\obj\Debug\net8.0\refint\WFConFin.dll
 D:\Users\repos\WFConFin\WFConFin\obj\Debug\net8.0\WFConFin.pdb
 D:\Users\repos\WFConFin\WFConFin\obj\Debug\net8.0\WFConFin.genruntimeconfig.cache
 D:\Users\repos\WFConFin\WFConFin\obj\Debug\net8.0\ref\WFConFin.dll
+D:\Users\repos\WFConFin\WFConFin\obj\Debug\net8.0\WFConFin.sourcelink.json

@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WFConFin.Models
 {
+    public enum Situation { Aberta, Paga }
     public class Account
     {
         public Guid Id { get; set; }
@@ -19,13 +20,17 @@ namespace WFConFin.Models
         [DataType(DataType.Date)]
         public DateTime DueDate { get; set; }
 
-        [Required(ErrorMessage = "O campo Data Pagamento é obrigatório")]
         [DataType(DataType.Date)]
-        public DateTime PaymentDate { get; set; }
+        public DateTime? PaymentDate { get; set; }
 
         [Required(ErrorMessage = "O campo Situação é obrigatório")]
         [DataType(DataType.Date)]
-        public DateTime Situation { get; set; }
+        public Situation Situations { get; set; }
+
+        [Required(ErrorMessage = "O pessoa é obrigatória!")]
+        public Guid IdPersona { get; set; }
+
+        public Persona Persona { get; set; }
 
         public Account()
         {

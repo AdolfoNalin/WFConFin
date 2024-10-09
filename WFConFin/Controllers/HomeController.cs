@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using WFConFin.Models;
 
 namespace WFConFin.Controllers
 {
@@ -7,11 +8,30 @@ namespace WFConFin.Controllers
     [Route("[controller]")]
     public class HomeController : Controller
     {
+        private static List<State> states = new List<State>();
+
+        #region GetStates
+        [HttpGet("states")]
+        public IActionResult GetStatus()
+        {
+            return Ok(states);
+        }
+        #endregion
+
+        #region PostState
+        [HttpPost("state")]
+        public IActionResult PostState([FromBody] State state)
+        {
+            states.Add(state);
+            return Ok("Estado cadastrado com sucesso!");
+        }
+        #endregion
+
         [HttpGet("info1")]
         public IActionResult Index1()
         {
             var result = "Busca concuida com sucesso";
-            return Ok(result);
+            return Ok("Estado cadastrado com sucesso!");
         }
 
         [HttpGet("info2")]

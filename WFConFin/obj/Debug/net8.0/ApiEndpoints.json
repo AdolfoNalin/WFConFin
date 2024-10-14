@@ -43,6 +43,22 @@
   },
   {
     "ContainingType": "WFConFin.Controllers.StateController",
+    "Method": "GetSigla",
+    "RelativePath": "api/State/{sigla}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "sigla",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WFConFin.Controllers.StateController",
     "Method": "DeleteState",
     "RelativePath": "api/State/{sigla}",
     "HttpMethod": "DELETE",
@@ -58,134 +74,50 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "WFConFin.Controllers.HomeController",
-    "Method": "Index1",
-    "RelativePath": "Home/info1",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "WFConFin.Controllers.HomeController",
-    "Method": "Index2",
-    "RelativePath": "Home/info2",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "WFConFin.Controllers.HomeController",
-    "Method": "Index3",
-    "RelativePath": "Home/info3/{valor}",
+    "ContainingType": "WFConFin.Controllers.StateController",
+    "Method": "GetStatePagination",
+    "RelativePath": "api/State/Pagination",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "valor",
+        "Name": "value",
         "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "WFConFin.Controllers.HomeController",
-    "Method": "Index4",
-    "RelativePath": "Home/info4",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
+        "IsRequired": false
+      },
       {
-        "Name": "valor",
-        "Type": "System.String",
+        "Name": "skip",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "take",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "desc",
+        "Type": "System.Boolean",
         "IsRequired": false
       }
     ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "WFConFin.Controllers.HomeController",
-    "Method": "Index5",
-    "RelativePath": "Home/info5",
-    "HttpMethod": "POST",
+    "ContainingType": "WFConFin.Controllers.StateController",
+    "Method": "GetSiglaSeach",
+    "RelativePath": "api/State/Search",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "valor",
+        "Name": "value",
         "Type": "System.String",
         "IsRequired": false
       }
     ],
     "ReturnTypes": []
-  },
-  {
-    "ContainingType": "WFConFin.Controllers.HomeController",
-    "Method": "Index6",
-    "RelativePath": "Home/info6",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "Body",
-        "Type": "WFConFin.Controllers.Body",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "WFConFin.Controllers.HomeController",
-    "Method": "PostState",
-    "RelativePath": "Home/state",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "state",
-        "Type": "WFConFin.Models.State",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "WFConFin.Controllers.HomeController",
-    "Method": "GetStatus",
-    "RelativePath": "Home/states",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "WFConFin.Controllers.WeatherForecastController",
-    "Method": "Get",
-    "RelativePath": "WeatherForecast",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[WFConFin.WeatherForecast, WFConFin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ],
-    "EndpointName": "GetWeatherForecast"
   }
 ]

@@ -31,7 +31,7 @@ namespace WFConFin.Models
 
         public Guid? IdCity{ get; set; }
 
-        public City City { get; set; }
+        public City? City { get; set; }
 
         public Persona()
         {

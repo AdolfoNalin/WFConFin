@@ -19,6 +19,6 @@ namespace WFConFin.Models
             Id = Guid.NewGuid();
         }
 
-        public State State { get; set; }
+        public State? State { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace WFConFin.Models
 {
@@ -12,13 +13,14 @@ namespace WFConFin.Models
 
         [Required(ErrorMessage = "O campo estado é obrigatório")]
         [StringLength(2, MinimumLength = 2, ErrorMessage = "O campo estado teve ter 2 caracteris")]
-        public string Sigla { get; set; }
+        public string StateSigla { get; set; }
 
         public City()
         {
             Id = Guid.NewGuid();
         }
 
+        [JsonIgnore]
         public State? State { get; set; }
     }
 }

@@ -44,7 +44,6 @@ namespace WFConFin.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
-                    Sigla = table.Column<string>(type: "character varying(2)", maxLength: 2, nullable: false),
                     StateSigla = table.Column<string>(type: "character varying(2)", nullable: false)
                 },
                 constraints: table =>

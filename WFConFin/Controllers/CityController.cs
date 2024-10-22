@@ -18,11 +18,11 @@ namespace WFConFin.Controllers
 
         #region Get City
         [HttpGet]
-        public IActionResult GetCity()
+        public async Task<IActionResult> GetCity()
         {
             try
             {
-                var city = _context.City.Include(c => c.State).OrderBy(c => c.Name).ToList();
+                var city = await _context.City.Include(c => c.State).OrderBy(c => c.Name).ToListAsync();
                 return Ok(city);
             }
             catch (Exception ex)
@@ -34,11 +34,11 @@ namespace WFConFin.Controllers
 
         #region GetCityId
         [HttpGet("{id}")]
-        public IActionResult GetCity([FromRoute] Guid id)
+        public async Task<IActionResult> GetCity([FromRoute] Guid id)
         {
             try
             {
-                City city = _context.City.Find(id) ?? throw new NullReferenceException("City Not found");
+                City city = await _context.City.FindAsync(id) ?? throw new NullReferenceException("City Not found");
 
                 return Ok(city);
             }
@@ -55,13 +55,13 @@ namespace WFConFin.Controllers
 
         #region GetSiglaPagination
         [HttpGet("Pagination")]
-        public IActionResult GetCityPagination([FromQuery] string value, int skip, int take, bool desc)
+        public async Task<IActionResult> GetCityPagination([FromQuery] string value, int skip, int take, bool desc)
         {
             try
             {
                 value = value.ToUpper();
 
-                var city = from o in _context.City.ToList()
+                var city = from o in await _context.City.ToListAsync()
                             where o.Name.ToUpper().Contains(value) || o.StateSigla.ToUpper().Contains(value)
                             select o;
 
@@ -97,13 +97,13 @@ namespace WFConFin.Controllers
 
         #region GetSiglaSmart
         [HttpGet("Search")]
-        public IActionResult GetSiglaSeach([FromQuery] string value)
+        public async Task<IActionResult> GetSiglaSeach([FromQuery] string value)
         {
             try
             {
                 value = value.ToUpper();
 
-                var city = _context.City.Where(c => c.Name.ToUpper().Contains(value) || c.StateSigla.ToUpper().Contains(value)).ToList();
+                var city = await _context.City.Where(c => c.Name.ToUpper().Contains(value) || c.StateSigla.ToUpper().Contains(value)).ToListAsync();
 
                 _ = city.FirstOrDefault() ?? throw new NullReferenceException($"Estado não existe no banco de dados");
 
@@ -122,12 +122,12 @@ namespace WFConFin.Controllers
 
         #region Post City
         [HttpPost]
-        public IActionResult PostCity([FromBody] City city)
+        public async Task<IActionResult> PostCity([FromBody] City city)
         {
             try
             {
                 _context.City.Add(city);
-                var value = _context.SaveChanges();
+                var value = await _context.SaveChangesAsync();
 
                 if (value == 1)
                 {
@@ -147,14 +147,14 @@ namespace WFConFin.Controllers
 
         #region Put City
         [HttpPut]
-        public IActionResult PutCity([FromBody] City city)
+        public async Task<IActionResult> PutCity([FromBody] City city)
         {
             try
             {
-                City obj = _context.City.Find(city.Id) ?? throw new NullReferenceException("City not found");
+                City obj = await _context.City.FindAsync(city.Id) ?? throw new NullReferenceException("City not found");
 
                 _context.City.Update(city);
-                int value = _context.SaveChanges();
+                int value = await _context.SaveChangesAsync();
 
                 if (value == 1)
                 {
@@ -174,15 +174,15 @@ namespace WFConFin.Controllers
 
         #region DeleteCity
         [HttpDelete("{id}")]
-        public IActionResult DeleteCity([FromRoute] Guid id)
+        public async Task<IActionResult> DeleteCity([FromRoute] Guid id)
         {
             try
             {
-                City city = _context.City.Find(id) ?? throw new NullReferenceException("City not Found");
+                City city = await _context.City.FindAsync(id) ?? throw new NullReferenceException("City not Found");
 
                 _context.City.Remove(city);
 
-                int value = _context.SaveChanges();
+                int value = await _context.SaveChangesAsync();
 
                 if (value == 1)
                 {

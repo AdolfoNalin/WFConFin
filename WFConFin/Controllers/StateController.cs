@@ -21,12 +21,12 @@ namespace WFConFin.Controllers
 
         #region GetSigla
         [HttpGet("{sigla}")]
-        public IActionResult GetSigla([FromRoute] string sigla)
+        public async Task<IActionResult> GetSigla([FromRoute] string sigla)
         {
             try
             {
                 sigla = sigla.ToUpper();
-                State state = _context.State.Find(sigla) ?? throw new NullReferenceException($"Estado com a sigla {sigla} não existe no banco de dados");
+                State state = await _context.State.FindAsync(sigla) ?? throw new NullReferenceException($"Estado com a sigla {sigla} não existe no banco de dados");
                 return Ok(state);
             }
             catch (Exception ex)
@@ -38,14 +38,14 @@ namespace WFConFin.Controllers
 
         #region GetSiglaSmart
         [HttpGet("Search")]
-        public IActionResult GetSiglaSeach([FromQuery] string value)
+        public async Task<IActionResult> GetSiglaSeach([FromQuery] string value)
         {
             try
             {
                 value = value.ToUpper();
 
                 //Entity
-                var state = _context.State.Where(s => s.Name.ToUpper().Contains(value) || s.Sigla.ToUpper().Contains(value)).ToList();
+                var state = await _context.State.Where(s => s.Name.ToUpper().Contains(value) || s.Sigla.ToUpper().Contains(value)).ToListAsync();
 
                 /*Query criteria
                 var list = from o in _context.State.ToList()
@@ -71,7 +71,7 @@ namespace WFConFin.Controllers
 
         #region GetSiglaPagination
         [HttpGet("Pagination")]
-        public IActionResult GetStatePagination([FromQuery] string value, int skip, int take, bool desc)
+        public async  Task<IActionResult> GetStatePagination([FromQuery] string value, int skip, int take, bool desc)
         {
             try
             {
@@ -81,7 +81,7 @@ namespace WFConFin.Controllers
                 //var state = _context.State.Where(s => s.Name.ToUpper().Contains(value) || s.Sigla.ToUpper().Contains(value)).ToList();
 
                 //Query criteria
-                var state = from o in _context.State.ToList()
+                var state = from o in await _context.State.ToListAsync()
                            where o.Name.ToUpper().Contains(value) || o.Sigla.ToUpper().Contains(value)
                            select o;
 
@@ -119,11 +119,11 @@ namespace WFConFin.Controllers
 
         #region GetAll
         [HttpGet]
-        public IActionResult GetStates()
+        public async Task<IActionResult> GetStates()
         {
             try
             {
-                return Ok(_context.State.OrderBy(s => s.Name).ToList<State>());
+                return Ok(await _context.State.OrderBy(s => s.Name).ToListAsync<State>());
             }
             catch (Exception ex)
             {
@@ -134,15 +134,15 @@ namespace WFConFin.Controllers
 
         #region Post
         [HttpPost]
-        public IActionResult PostState([FromBody] State state)
+        public async Task<IActionResult> PostState([FromBody] State state)
         {
             try
             {
                 state.Name = state.Name.ToUpper();
                 state.Sigla = state.Sigla.ToUpper();
                 _ = state ?? throw new NullReferenceException("Por favor preencha o Todos os dados do Estado!");
-                _context.State.Add(state);
-                int value = _context.SaveChanges();
+                await _context.State.AddAsync(state);
+                int value = await _context.SaveChangesAsync();
 
                 if (value == 0)
                 {
@@ -160,7 +160,7 @@ namespace WFConFin.Controllers
 
         #region Put
         [HttpPut]
-        public IActionResult PutState([FromBody] State state)
+        public async Task<IActionResult> PutState([FromBody] State state)
         {
             try
             {
@@ -168,7 +168,7 @@ namespace WFConFin.Controllers
                 state.Sigla = state.Sigla.ToUpper();
                 _ = state ?? throw new NullReferenceException("Por favor preencha o Todos os dados do Estado!");
                 _context.State.Update(state);
-                int value = _context.SaveChanges();
+                int value = await _context.SaveChangesAsync();
 
                 if (value == 0)
                 {
@@ -186,16 +186,16 @@ namespace WFConFin.Controllers
 
         #region Delete
         [HttpDelete("{sigla}")]
-        public IActionResult DeleteState([FromRoute] string sigla)
+        public async Task<IActionResult> DeleteState([FromRoute] string sigla)
         {
             try
             {
                 sigla = sigla.ToUpper();
-                State state = _context.State.Find(sigla) ?? throw new NullReferenceException("Estado não encotrado");
+                State state = await _context.State.FindAsync(sigla) ?? throw new NullReferenceException("Estado não encotrado");
 
                 _context.State.Remove(state);
 
-                if(_context.SaveChanges() == 0)
+                if(await _context.SaveChangesAsync() == 0)
                 {
                     return BadRequest("Estado não excluido!");
                 }

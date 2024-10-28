@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace WFConFin.Models
 {
@@ -31,6 +32,7 @@ namespace WFConFin.Models
         [Required(ErrorMessage = "O pessoa é obrigatória!")]
         public Guid IdPersona { get; set; }
 
+        [JsonIgnore]
         public Persona Persona { get; set; }
 
         public Account()

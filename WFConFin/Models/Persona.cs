@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection.Metadata.Ecma335;
 using System.Runtime.CompilerServices;
+using System.Text.Json.Serialization;
 
 namespace WFConFin.Models
 {
@@ -31,6 +32,7 @@ namespace WFConFin.Models
 
         public Guid? IdCity{ get; set; }
 
+        [JsonIgnore]
         public City? City { get; set; }
 
         public Persona()

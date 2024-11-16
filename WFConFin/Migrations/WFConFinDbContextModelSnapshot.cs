@@ -42,7 +42,7 @@ namespace WFConFin.Migrations
                     b.Property<DateTime?>("PaymentDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid?>("PersonaId")
+                    b.Property<Guid>("PersonaId")
                         .HasColumnType("uuid");
 
                     b.Property<int>("Situations")
@@ -94,14 +94,13 @@ namespace WFConFin.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Gender")
+                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("character varying(20)");
-
-                    b.Property<Guid?>("IdCity")
-                        .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -174,7 +173,9 @@ namespace WFConFin.Migrations
                 {
                     b.HasOne("WFConFin.Models.Persona", "Persona")
                         .WithMany()
-                        .HasForeignKey("PersonaId");
+                        .HasForeignKey("PersonaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Persona");
                 });

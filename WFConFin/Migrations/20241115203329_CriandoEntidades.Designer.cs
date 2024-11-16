@@ -12,8 +12,8 @@ using WFConFin.Data;
 namespace WFConFin.Migrations
 {
     [DbContext(typeof(WFConFinDbContext))]
-    [Migration("20241010185450_Iniciar")]
-    partial class Iniciar
+    [Migration("20241115203329_CriandoEntidades")]
+    partial class CriandoEntidades
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -72,13 +72,9 @@ namespace WFConFin.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)");
 
-                    b.Property<string>("Sigla")
-                        .IsRequired()
-                        .HasMaxLength(2)
-                        .HasColumnType("character varying(2)");
-
                     b.Property<string>("StateSigla")
                         .IsRequired()
+                        .HasMaxLength(2)
                         .HasColumnType("character varying(2)");
 
                     b.HasKey("Id");
@@ -108,9 +104,6 @@ namespace WFConFin.Migrations
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("character varying(20)");
-
-                    b.Property<Guid?>("IdCity")
-                        .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .IsRequired()

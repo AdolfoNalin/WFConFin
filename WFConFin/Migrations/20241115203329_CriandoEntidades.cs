@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WFConFin.Migrations
 {
     /// <inheritdoc />
-    public partial class Iniciar : Migration
+    public partial class CriandoEntidades : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -44,7 +44,7 @@ namespace WFConFin.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
-                    StateSigla = table.Column<string>(type: "character varying(2)", nullable: false)
+                    StateSigla = table.Column<string>(type: "character varying(2)", maxLength: 2, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -68,7 +68,6 @@ namespace WFConFin.Migrations
                     DateBirth = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     Wage = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
                     Gender = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
-                    IdCity = table.Column<Guid>(type: "uuid", nullable: true),
                     CityId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>

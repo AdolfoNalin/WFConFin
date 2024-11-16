@@ -126,7 +126,9 @@ namespace WFConFin.Controllers
         {
             try
             {
-                _context.City.Add(city);
+                city.StateSigla = city.StateSigla.ToUpper();
+                city.Name = city.Name.ToUpper();
+                await _context.City.AddAsync(city);
                 var value = await _context.SaveChangesAsync();
 
                 if (value == 1)

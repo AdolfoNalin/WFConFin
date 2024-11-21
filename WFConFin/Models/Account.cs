@@ -8,6 +8,7 @@ namespace WFConFin.Models
     public enum Situation { Aberta, Paga }
     public class Account
     {
+        [Key]
         public Guid Id { get; set; }
 
         [Required(ErrorMessage = "O campo descrição é obrigatório!")]

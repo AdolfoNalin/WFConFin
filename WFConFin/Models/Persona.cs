@@ -1,7 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Routing.Constraints;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Reflection.Metadata.Ecma335;
-using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
 
 namespace WFConFin.Models
@@ -10,32 +9,39 @@ namespace WFConFin.Models
     {
         [Key]
         public Guid Id { get; set; }
-        [Required(ErrorMessage = "O nome é obrigatório")]
-        [StringLength(200, MinimumLength = 3, ErrorMessage = "O limite minimo de caracteris para nome é 3")]
+
+        [Required(ErrorMessage = "O nome é necessária!")]
+        [StringLength(200, MinimumLength = 3, ErrorMessage = "A quantidade minima de caracteris é de 3 e a quantidade máxima é 200")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "O número de celular é obrigátório")]
-        [StringLength(20, MinimumLength = 15, ErrorMessage = "O limite minimo de caracteris para número de celular é 15")]
+        [Required(ErrorMessage = "O Telefone é obrigatório!")]
+        [StringLength(20, MinimumLength = 10, ErrorMessage = "O minimo é de 10 caracteris e o máximo é 20 caracteris")]
         public string NumberPhone { get; set; }
 
         [EmailAddress]
         public string Email { get; set; }
 
+        [Required(ErrorMessage = "A data de nas cimento é obrigatório!")]
         [DataType(DataType.Date)]
-        public DateTime? DateBirth { get; set; }
+        public DateTime BirthDate { get; set; }
 
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal Wage { get; set; }
+        [Required(ErrorMessage = "O salário é obrigatório")]
+        [Column(TypeName = "Decimal(18,2)")]
+        public float Wage { get; set; }
 
-        [StringLength(20,MinimumLength = 1, ErrorMessage = "O campo Gênero é até 20 caracteris")]
+        [Required(ErrorMessage = "O Genero é obrigatório")]
+        [StringLength(20, MinimumLength = 1, ErrorMessage = "A quantidade minima é de 1 caracter e o máximo é é 20")]
         public string Gender { get; set; }
 
-        [ForeignKey("cityId")]
-        public Guid? CityId { get; set; }
+        public Guid CityId { get; set; }
+
+        [JsonIgnore]
+        private readonly DateTime Date;
 
         public Persona()
         {
             Id = Guid.NewGuid();
+            BirthDate = Date.ToUniversalTime();
         }
 
         [JsonIgnore]

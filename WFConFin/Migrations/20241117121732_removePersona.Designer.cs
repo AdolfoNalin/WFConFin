@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WFConFin.Data;
@@ -11,9 +12,11 @@ using WFConFin.Data;
 namespace WFConFin.Migrations
 {
     [DbContext(typeof(WFConFinDbContext))]
-    partial class WFConFinDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241117121732_removePersona")]
+    partial class removePersona
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,9 +45,6 @@ namespace WFConFin.Migrations
                     b.Property<DateTime?>("PaymentDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("PersonaId")
-                        .HasColumnType("uuid");
-
                     b.Property<int>("Situations")
                         .HasColumnType("integer");
 
@@ -52,8 +52,6 @@ namespace WFConFin.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PersonaId");
 
                     b.ToTable("Account");
                 });
@@ -79,47 +77,6 @@ namespace WFConFin.Migrations
                     b.HasIndex("StateSigla");
 
                     b.ToTable("City");
-                });
-
-            modelBuilder.Entity("WFConFin.Models.Persona", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("CityId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Gender")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
-
-                    b.Property<string>("NumberPhone")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
-
-                    b.Property<float>("Wage")
-                        .HasColumnType("Decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CityId");
-
-                    b.ToTable("Persona");
                 });
 
             modelBuilder.Entity("WFConFin.Models.State", b =>
@@ -169,17 +126,6 @@ namespace WFConFin.Migrations
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("WFConFin.Models.Account", b =>
-                {
-                    b.HasOne("WFConFin.Models.Persona", "Persona")
-                        .WithMany()
-                        .HasForeignKey("PersonaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Persona");
-                });
-
             modelBuilder.Entity("WFConFin.Models.City", b =>
                 {
                     b.HasOne("WFConFin.Models.State", "State")
@@ -189,17 +135,6 @@ namespace WFConFin.Migrations
                         .IsRequired();
 
                     b.Navigation("State");
-                });
-
-            modelBuilder.Entity("WFConFin.Models.Persona", b =>
-                {
-                    b.HasOne("WFConFin.Models.City", "City")
-                        .WithMany()
-                        .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("City");
                 });
 #pragma warning restore 612, 618
         }

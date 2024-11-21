@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WFConFin.Data;
@@ -11,9 +12,11 @@ using WFConFin.Data;
 namespace WFConFin.Migrations
 {
     [DbContext(typeof(WFConFinDbContext))]
-    partial class WFConFinDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241120165821_CreateEntityPersona")]
+    partial class CreateEntityPersona
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,9 +45,6 @@ namespace WFConFin.Migrations
                     b.Property<DateTime?>("PaymentDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("PersonaId")
-                        .HasColumnType("uuid");
-
                     b.Property<int>("Situations")
                         .HasColumnType("integer");
 
@@ -52,8 +52,6 @@ namespace WFConFin.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PersonaId");
 
                     b.ToTable("Account");
                 });
@@ -167,17 +165,6 @@ namespace WFConFin.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("User");
-                });
-
-            modelBuilder.Entity("WFConFin.Models.Account", b =>
-                {
-                    b.HasOne("WFConFin.Models.Persona", "Persona")
-                        .WithMany()
-                        .HasForeignKey("PersonaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Persona");
                 });
 
             modelBuilder.Entity("WFConFin.Models.City", b =>

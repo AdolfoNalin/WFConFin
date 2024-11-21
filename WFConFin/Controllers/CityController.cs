@@ -126,6 +126,11 @@ namespace WFConFin.Controllers
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
                 city.StateSigla = city.StateSigla.ToUpper();
                 city.Name = city.Name.ToUpper();
                 await _context.City.AddAsync(city);

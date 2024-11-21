@@ -11,7 +11,7 @@ namespace WFConFin.Controllers
     [ApiController]
     [Route("api/[Controller]")]
     public class StateController : Controller
-    {
+    { 
         private readonly WFConFinDbContext _context;
 
         public StateController(WFConFinDbContext context)

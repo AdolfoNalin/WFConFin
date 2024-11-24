@@ -7,8 +7,8 @@ namespace WFConFin.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class PersonaController : Controller
-    {
+        public class PersonaController : Controller
+        {
         private readonly WFConFinDbContext _context;
 
         public PersonaController(WFConFinDbContext context)
@@ -157,8 +157,6 @@ namespace WFConFin.Controllers
                 {
                     throw new NullReferenceException("O objeto não pode ser nulo!");
                 }
-                
-                Persona value = _context.Persona.Find(persona.Id) ?? throw new NullReferenceException("Pessoa não encontrada!");
 
                 persona.BirthDate = persona.BirthDate.ToUniversalTime();
 
@@ -198,7 +196,7 @@ namespace WFConFin.Controllers
 
                 var value = await _context.SaveChangesAsync();
 
-                if(value == 1)
+                if (value == 1)
                 {
                     return Ok("Deletado com sucesso!");
                 }

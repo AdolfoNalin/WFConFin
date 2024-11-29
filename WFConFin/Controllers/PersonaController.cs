@@ -7,8 +7,8 @@ namespace WFConFin.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-        public class PersonaController : Controller
-        {
+    public class PersonaController : Controller
+    {
         private readonly WFConFinDbContext _context;
 
         public PersonaController(WFConFinDbContext context)
@@ -23,7 +23,7 @@ namespace WFConFin.Controllers
             try
             {
                 name = name.ToUpper();
-                Persona persona = await _context.Persona.FindAsync(name) ?? throw new NullReferenceException($"Estado com a sigla {name} não existe no banco de dados");
+                Persona persona = await _context.Persona.FindAsync(name) ?? throw new NullReferenceException($"Pessoa com o nome {name} não existe no banco de dados");
                 return Ok(persona);
             }
             catch (NullReferenceException ne)
@@ -39,7 +39,7 @@ namespace WFConFin.Controllers
 
         #region GetNameSmart
         [HttpGet("Name")]
-        public async Task<IActionResult> GetSiglaSeach([FromQuery] string value)
+        public async Task<IActionResult> GetNameSeach([FromQuery] string value)
         {
             try
             {

@@ -71,8 +71,8 @@ namespace WFConFin.Controllers
                 value = value.ToUpper();
 
                 var persona = from o in await _context.Persona.ToListAsync()
-                            where o.Name.ToUpper().Contains(value) || o.Email.ToUpper().Contains(value)
-                            select o;
+                              where o.Name.ToUpper().Contains(value) || o.Email.ToUpper().Contains(value)
+                              select o;
 
                 _ = persona.FirstOrDefault() ?? throw new NullReferenceException($"Pessoa não existe no banco de dados");
 
@@ -93,7 +93,7 @@ namespace WFConFin.Controllers
 
                 return Ok(pr);
             }
-            catch(NullReferenceException ne)
+            catch (NullReferenceException ne)
             {
                 return BadRequest(ne.Message);
             }
@@ -123,7 +123,7 @@ namespace WFConFin.Controllers
                 {
                     return BadRequest("A pessoa não foi cadastrada");
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -173,9 +173,9 @@ namespace WFConFin.Controllers
                     return BadRequest("Infelizmente a atualização não foi realizada!");
                 }
             }
-            catch(NullReferenceException ne)
-            { 
-                return BadRequest(ne.Message); 
+            catch (NullReferenceException ne)
+            {
+                return BadRequest(ne.Message);
             }
             catch (Exception ex)
             {

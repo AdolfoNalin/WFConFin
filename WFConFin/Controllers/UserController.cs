@@ -28,7 +28,7 @@ namespace WFConFin.Controllers
                 name = name.ToUpper();
                 return Ok(await _context.User.FindAsync(name) ?? throw new NullReferenceException("Usuário não existe no banco de dados"));
             }
-            catch(NullReferenceException ne)
+            catch (NullReferenceException ne)
             {
                 return NotFound(ne.Message);
             }
@@ -40,18 +40,18 @@ namespace WFConFin.Controllers
         #endregion
 
         #region GetNameSmart
-        [HttpGet]
+        [HttpGet("Name")]
         public async Task<IActionResult> GetNameSmart([FromQuery] string value)
         {
             try
             {
-                value = value.ToUpper();   
+                value = value.ToUpper();
                 List<User> users = await _context.User.Where(u => u.Name.ToUpper().Contains(value)).ToListAsync<User>();
                 _ = users.FirstOrDefault() ?? throw new NullReferenceException("Usuário não existe no banco de dados");
 
                 return Ok(users);
             }
-            catch(NullReferenceException ne)
+            catch (NullReferenceException ne)
             {
                 return NotFound(ne.Message);
             }
@@ -63,35 +63,43 @@ namespace WFConFin.Controllers
         #endregion
 
         #region GetPagination
-        [HttpGet]
+        [HttpGet("Pagination")]
         public async Task<IActionResult> GetPagination([FromQuery] string value, int skip, int take, bool desc)
         {
             try
             {
                 value = value.ToUpper();
-                var users = from u in await _context.User.ToListAsync() where u.Name.ToUpper().Contains(value) select u;
 
-                _ = users.FirstOrDefault() ?? throw new NullReferenceException("Usuário não encontado no banco de dados");
+                var users = from o in await _context.User.ToListAsync()
+                              where o.Name.ToUpper().Contains(value)
+                              select o;
 
-                if(desc)
+                _ = users.FirstOrDefault() ?? throw new NullReferenceException($"Pessoa não existe no banco de dados");
+
+                if (desc)
                 {
-                    users = from u in users orderby u.Name descending select u;
+                    users = from o in users orderby o.Name descending select o;
                 }
                 else
                 {
-                    users = from u in users orderby u.Name ascending select u;
+                    users = from o in users orderby o.Name ascending select o;
                 }
 
                 int amount = users.Count();
 
-                users.Skip(skip).Take(take).ToList<User>();
+                users = users.Skip(skip).Take(take).ToList();
 
                 var pr = new PaginationResponse<User>(users, amount, skip, take);
+
                 return Ok(pr);
+            }
+            catch (NullReferenceException ne)
+            {
+                return BadRequest(ne.Message);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest($"Error in GetStatePagination With message: {ex.Message} with path: {ex.StackTrace}");
             }
         }
         #endregion
@@ -102,7 +110,7 @@ namespace WFConFin.Controllers
         {
             try
             {
-                return Ok(_context.User.OrderBy(u => u.Name).ToList<User>());
+                return Ok(await _context.User.OrderBy(u => u.Name).ToListAsync());
             }
             catch (Exception ex)
             {
@@ -126,10 +134,10 @@ namespace WFConFin.Controllers
                     return BadRequest("Usuário não pode ser nulo");
                 }
 
-                _context.User.AddAsync(user);
+                await _context.User.AddAsync(user);
                 var value = await _context.SaveChangesAsync();
 
-                if(value == 1)
+                if (value == 1)
                 {
                     return Ok("User was insert into!");
                 }

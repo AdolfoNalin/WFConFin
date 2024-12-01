@@ -74,7 +74,7 @@ namespace WFConFin.Controllers
                             where o.Name.ToUpper().Contains(value) || o.Email.ToUpper().Contains(value)
                             select o;
 
-                _ = persona.FirstOrDefault() ?? throw new NullReferenceException($"Estado não existe no banco de dados");
+                _ = persona.FirstOrDefault() ?? throw new NullReferenceException($"Pessoa não existe no banco de dados");
 
                 if (desc)
                 {

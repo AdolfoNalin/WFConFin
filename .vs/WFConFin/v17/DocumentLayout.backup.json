@@ -36,11 +36,32 @@
               "RelativeDocumentMoniker": "WFConFin\\Controllers\\UserController.cs",
               "ToolTip": "D:\\Users\\repos\\WFConFin\\WFConFin\\Controllers\\UserController.cs",
               "RelativeToolTip": "WFConFin\\Controllers\\UserController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAgAAAAAAAAAA==",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAACcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-28T00:04:15.794Z",
               "EditorCaption": ""
-            },
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "FloatingWindowState": {
+        "Id": "dbf39310-7f79-4e6d-8a2c-8a6dc17706e2",
+        "Display": 1,
+        "X": 277,
+        "Y": 121,
+        "Width": 1328,
+        "Height": 691,
+        "WindowState": 2
+      },
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
@@ -49,7 +70,7 @@
               "RelativeDocumentMoniker": "WFConFin\\Controllers\\PersonaController.cs",
               "ToolTip": "D:\\Users\\repos\\WFConFin\\WFConFin\\Controllers\\PersonaController.cs",
               "RelativeToolTip": "WFConFin\\Controllers\\PersonaController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAA7AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-22T23:53:15.84Z",
               "EditorCaption": ""

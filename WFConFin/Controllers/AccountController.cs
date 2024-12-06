@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Update;
+using System.Data;
 using WFConFin.Data;
 using WFConFin.Models;
 
@@ -21,7 +24,7 @@ namespace WFConFin.Controllers
         {
             try
             {
-                return Ok(_context.Account.OrderBy(x => x.Id).ToList<Account>());
+                return Ok(await _context.Account.OrderBy(x => x.Id).ToListAsync());
             }
             catch (Exception ex)
             {
@@ -36,6 +39,15 @@ namespace WFConFin.Controllers
         {
             try
             {
+                DateTime date = new DateTime();
+                account.DueDate = account.DueDate.ToUniversalTime();
+
+                if (account.PaymentDate != null)
+                {
+                    date = account.PaymentDate.Value;
+                    account.PaymentDate = date.ToUniversalTime();
+                }
+
                 await _context.Account.AddAsync(account ?? throw new NullReferenceException("Conta não pode ser nulo!"));
                 var value = await _context.SaveChangesAsync();
 
@@ -65,6 +77,15 @@ namespace WFConFin.Controllers
         {
             try
             {
+                DateTime date = new DateTime();
+                account.DueDate = account.DueDate.ToUniversalTime();
+
+                if(account.PaymentDate != null)
+                {
+                    date = account.PaymentDate.Value;
+                    account.PaymentDate = date.ToUniversalTime();
+                }
+                
                 _context.Account.Update(account ?? throw new NullReferenceException("Conta não pode ser nulo!"));
                 var value = await _context.SaveChangesAsync();
 

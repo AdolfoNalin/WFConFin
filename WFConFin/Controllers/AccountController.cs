@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Update;
+using System.Collections.Immutable;
 using System.Data;
 using WFConFin.Data;
 using WFConFin.Models;
@@ -17,6 +19,93 @@ namespace WFConFin.Controllers
         {
             _context = context;
         }
+
+        #region GetPagination
+        [HttpGet("Pagination")]
+        public async Task<IActionResult> GetPagination([FromQuery] string value, int skip, int take, bool desc)
+        {
+            try
+            {
+                value = value.ToUpper();
+
+                var persona = from o in await _context.Persona.ToListAsync()
+                              where o.Name.ToUpper().Contains(value) || o.Email.ToUpper().Contains(value)
+                              select o;
+
+                _ = persona.FirstOrDefault() ?? throw new NullReferenceException($"Pessoa não existe no banco de dados");
+
+                if (desc)
+                {
+                    persona = from o in persona orderby o.Name descending select o;
+                }
+                else
+                {
+                    persona = from o in persona orderby o.Name ascending select o;
+                }
+
+                int amount = persona.Count();
+
+                persona = persona.Skip(skip).Take(take).ToList();
+
+                var pr = new PaginationResponse<Persona>(persona, amount, skip, take);
+
+                return Ok(pr);
+            }
+            catch (NullReferenceException ne)
+            {
+                return BadRequest(ne.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error in GetStatePagination With message: {ex.Message} with path: {ex.StackTrace}");
+            }
+        }
+        
+        #endregion
+
+        #region GetSmartDescription
+        [HttpGet("search")]
+        public async Task<IActionResult> GetSmartDescription([FromQuery] string value)
+        {
+            try
+            { 
+                value = value.ToUpper();
+                var account = _context.Account.Where<Account>(a => a.Description.Contains(value)).ToListAsync<Account>();
+                _ = account ?? throw new NullReferenceException("Nenhuma conta foi encontrada!");
+                
+                return Ok(account);
+            }
+            catch(NullReferenceException ne)
+            {
+                return NotFound(ne.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        #endregion
+
+        #region GetId
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetId([FromRoute] Guid id)
+        {
+            try
+            {
+                var account = await _context.Account.FindAsync(id) ?? throw new NullReferenceException("Nenhuma conta encontrada!");
+
+                return Ok(account);
+            }
+            catch(NullReferenceException ne)
+            {
+                return NotFound(ne.Message);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        #endregion
 
         #region GetAll
         [HttpGet]

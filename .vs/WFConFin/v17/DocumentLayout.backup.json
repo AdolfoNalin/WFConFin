@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "D:\\Users\\repos\\WFConFin\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{89BB371E-678E-4A8E-BA0F-D60F95E3047E}|WFConFin\\WFConFin.csproj|d:\\users\\repos\\wfconfin\\wfconfin\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{89BB371E-678E-4A8E-BA0F-D60F95E3047E}|WFConFin\\WFConFin.csproj|solutionrelative:wfconfin\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{89BB371E-678E-4A8E-BA0F-D60F95E3047E}|WFConFin\\WFConFin.csproj|d:\\users\\repos\\wfconfin\\wfconfin\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{89BB371E-678E-4A8E-BA0F-D60F95E3047E}|WFConFin\\WFConFin.csproj|solutionrelative:wfconfin\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{89BB371E-678E-4A8E-BA0F-D60F95E3047E}|WFConFin\\WFConFin.csproj|d:\\users\\repos\\wfconfin\\wfconfin\\controllers\\personacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{89BB371E-678E-4A8E-BA0F-D60F95E3047E}|WFConFin\\WFConFin.csproj|solutionrelative:wfconfin\\controllers\\personacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{89BB371E-678E-4A8E-BA0F-D60F95E3047E}|WFConFin\\WFConFin.csproj|d:\\users\\repos\\wfconfin\\wfconfin\\models\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{89BB371E-678E-4A8E-BA0F-D60F95E3047E}|WFConFin\\WFConFin.csproj|solutionrelative:wfconfin\\models\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 939,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -30,38 +34,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "UserController.cs",
-              "DocumentMoniker": "D:\\Users\\repos\\WFConFin\\WFConFin\\Controllers\\UserController.cs",
-              "RelativeDocumentMoniker": "WFConFin\\Controllers\\UserController.cs",
-              "ToolTip": "D:\\Users\\repos\\WFConFin\\WFConFin\\Controllers\\UserController.cs",
-              "RelativeToolTip": "WFConFin\\Controllers\\UserController.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAAAACoAAAAWAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "Account.cs",
+              "DocumentMoniker": "D:\\Users\\repos\\WFConFin\\WFConFin\\Models\\Account.cs",
+              "RelativeDocumentMoniker": "WFConFin\\Models\\Account.cs",
+              "ToolTip": "D:\\Users\\repos\\WFConFin\\WFConFin\\Models\\Account.cs",
+              "RelativeToolTip": "WFConFin\\Models\\Account.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-01T18:18:32.588Z",
-              "EditorCaption": ""
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "Orientation": 0,
-      "VerticalTabListWidth": 256,
-      "FloatingWindowState": {
-        "Id": "fff75577-3fb3-4b90-91cb-ca8624902be9",
-        "Display": 1,
-        "X": -5,
-        "Y": 214,
-        "Width": 1328,
-        "Height": 691,
-        "WindowState": 2
-      },
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
+              "WhenOpened": "2024-12-06T00:21:56.432Z"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 1,
@@ -70,9 +52,22 @@
               "RelativeDocumentMoniker": "WFConFin\\Controllers\\PersonaController.cs",
               "ToolTip": "D:\\Users\\repos\\WFConFin\\WFConFin\\Controllers\\PersonaController.cs",
               "RelativeToolTip": "WFConFin\\Controllers\\PersonaController.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAAF4AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAD8AAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-01T18:41:20.149Z",
+              "WhenOpened": "2024-12-06T00:15:48.251Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "D:\\Users\\repos\\WFConFin\\WFConFin\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "WFConFin\\Controllers\\AccountController.cs",
+              "ToolTip": "D:\\Users\\repos\\WFConFin\\WFConFin\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "WFConFin\\Controllers\\AccountController.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAYwEgAAABZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-04T00:27:58.438Z",
               "EditorCaption": ""
             }
           ]

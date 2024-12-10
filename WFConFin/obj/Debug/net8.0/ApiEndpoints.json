@@ -43,6 +43,22 @@
   },
   {
     "ContainingType": "WFConFin.Controllers.AccountController",
+    "Method": "GetId",
+    "RelativePath": "api/Account/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WFConFin.Controllers.AccountController",
     "Method": "Delete",
     "RelativePath": "api/Account/{id}",
     "HttpMethod": "DELETE",
@@ -53,6 +69,53 @@
         "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WFConFin.Controllers.AccountController",
+    "Method": "GetPagination",
+    "RelativePath": "api/Account/Pagination",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "value",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "skip",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "take",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "desc",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WFConFin.Controllers.AccountController",
+    "Method": "GetSmartName",
+    "RelativePath": "api/Account/search",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "value",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -222,6 +285,22 @@
   },
   {
     "ContainingType": "WFConFin.Controllers.PersonaController",
+    "Method": "GetName",
+    "RelativePath": "api/Persona/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WFConFin.Controllers.PersonaController",
     "Method": "Delete",
     "RelativePath": "api/Persona/{Id}",
     "HttpMethod": "DELETE",
@@ -231,22 +310,6 @@
       {
         "Name": "Id",
         "Type": "System.Guid",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "WFConFin.Controllers.PersonaController",
-    "Method": "GetSigla",
-    "RelativePath": "api/Persona/{name}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "name",
-        "Type": "System.String",
         "IsRequired": true
       }
     ],
@@ -423,7 +486,7 @@
   {
     "ContainingType": "WFConFin.Controllers.UserController",
     "Method": "Get",
-    "RelativePath": "User",
+    "RelativePath": "api/User",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -433,7 +496,7 @@
   {
     "ContainingType": "WFConFin.Controllers.UserController",
     "Method": "Post",
-    "RelativePath": "User",
+    "RelativePath": "api/User",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -449,7 +512,7 @@
   {
     "ContainingType": "WFConFin.Controllers.UserController",
     "Method": "Put",
-    "RelativePath": "User",
+    "RelativePath": "api/User",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -465,7 +528,7 @@
   {
     "ContainingType": "WFConFin.Controllers.UserController",
     "Method": "Delete",
-    "RelativePath": "User",
+    "RelativePath": "api/User",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -481,7 +544,7 @@
   {
     "ContainingType": "WFConFin.Controllers.UserController",
     "Method": "GetName",
-    "RelativePath": "User/{name}",
+    "RelativePath": "api/User/{name}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -497,7 +560,7 @@
   {
     "ContainingType": "WFConFin.Controllers.UserController",
     "Method": "GetNameSmart",
-    "RelativePath": "User/Name",
+    "RelativePath": "api/User/Name",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -513,7 +576,7 @@
   {
     "ContainingType": "WFConFin.Controllers.UserController",
     "Method": "GetPagination",
-    "RelativePath": "User/Pagination",
+    "RelativePath": "api/User/Pagination",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

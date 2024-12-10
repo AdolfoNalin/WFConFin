@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WFConFin.Migrations
 {
     /// <inheritdoc />
-    public partial class CriandoEntidades : Migration
+    public partial class CreateEntity : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -65,8 +65,8 @@ namespace WFConFin.Migrations
                     Name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
                     NumberPhone = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
                     Email = table.Column<string>(type: "text", nullable: false),
-                    DateBirth = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    Wage = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
+                    BirthDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Wage = table.Column<float>(type: "numeric(18,2)", nullable: false),
                     Gender = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
                     CityId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
@@ -86,12 +86,11 @@ namespace WFConFin.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Descriprion = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    Description = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
                     Velue = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
                     DueDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     PaymentDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     Situations = table.Column<int>(type: "integer", nullable: false),
-                    IdPersona = table.Column<Guid>(type: "uuid", nullable: false),
                     PersonaId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>

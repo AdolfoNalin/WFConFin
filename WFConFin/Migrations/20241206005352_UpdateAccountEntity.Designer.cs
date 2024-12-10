@@ -12,8 +12,8 @@ using WFConFin.Data;
 namespace WFConFin.Migrations
 {
     [DbContext(typeof(WFConFinDbContext))]
-    [Migration("20241115203329_CriandoEntidades")]
-    partial class CriandoEntidades
+    [Migration("20241206005352_UpdateAccountEntity")]
+    partial class UpdateAccountEntity
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,16 +31,13 @@ namespace WFConFin.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Descriprion")
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)");
 
                     b.Property<DateTime>("DueDate")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("IdPersona")
-                        .HasColumnType("uuid");
 
                     b.Property<DateTime?>("PaymentDate")
                         .HasColumnType("timestamp with time zone");
@@ -90,11 +87,11 @@ namespace WFConFin.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<Guid>("CityId")
                         .HasColumnType("uuid");
-
-                    b.Property<DateTime?>("DateBirth")
-                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -115,8 +112,8 @@ namespace WFConFin.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("character varying(20)");
 
-                    b.Property<decimal>("Wage")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<float>("Wage")
+                        .HasColumnType("Decimal(18,2)");
 
                     b.HasKey("Id");
 

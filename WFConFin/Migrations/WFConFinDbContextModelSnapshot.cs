@@ -28,16 +28,13 @@ namespace WFConFin.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Descriprion")
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)");
 
                     b.Property<DateTime>("DueDate")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("IdPersona")
-                        .HasColumnType("uuid");
 
                     b.Property<DateTime?>("PaymentDate")
                         .HasColumnType("timestamp with time zone");

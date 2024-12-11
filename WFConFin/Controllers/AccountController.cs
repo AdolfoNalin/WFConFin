@@ -28,26 +28,26 @@ namespace WFConFin.Controllers
             {
                 value = value.ToUpper();
 
-                var persona = from o in await _context.Persona.ToListAsync()
-                              where o.Name.ToUpper().Contains(value) || o.Email.ToUpper().Contains(value)
+                var persona = from o in await _context.Account.ToListAsync()
+                              where o.Description.ToUpper().Contains(value) 
                               select o;
 
-                _ = persona.FirstOrDefault() ?? throw new NullReferenceException($"Pessoa não existe no banco de dados");
+                _ = persona.FirstOrDefault() ?? throw new NullReferenceException($"Contas não existe no banco de dados");
 
                 if (desc)
                 {
-                    persona = from o in persona orderby o.Name descending select o;
+                    persona = from o in persona orderby o.Description descending select o;
                 }
                 else
                 {
-                    persona = from o in persona orderby o.Name ascending select o;
+                    persona = from o in persona orderby o.Description ascending select o;
                 }
 
                 int amount = persona.Count();
 
                 persona = persona.Skip(skip).Take(take).ToList();
 
-                var pr = new PaginationResponse<Persona>(persona, amount, skip, take);
+                var pr = new PaginationResponse<Account>(persona, amount, skip, take);
 
                 return Ok(pr);
             }
@@ -70,7 +70,7 @@ namespace WFConFin.Controllers
             try
             { 
                 value = value.ToUpper();
-                var account = _context.Account.Where<Account>(a => a.Description.Contains(value)).ToListAsync<Account>();
+                var account = await _context.Account.Where(a => a.Description.ToUpper().Contains(value)).ToListAsync();
                 _ = account ?? throw new NullReferenceException("Nenhuma conta foi encontrada!");
                 
                 return Ok(account);

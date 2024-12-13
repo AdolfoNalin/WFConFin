@@ -13,7 +13,7 @@ namespace WFConFin.Models
 
         [Required(ErrorMessage = "O campo descrição é obrigatório!")]
         [StringLength(200, MinimumLength = 3, ErrorMessage = "O limite minimo é de 3 caractéris")]
-        public string Descriprion { get; set; }
+        public string Description { get; set; }
 
         [Required(ErrorMessage = "O campo valor é obrigatório")]
         [Column(TypeName = "decimal(18,2)")]
@@ -30,11 +30,11 @@ namespace WFConFin.Models
         [DataType(DataType.Date)]
         public Situation Situations { get; set; }
 
-        [Required(ErrorMessage = "O pessoa é obrigatória!")]
-        public Guid IdPersona { get; set; }
-
+        [Required(ErrorMessage = "O Campo pessoa é obrigatório!")]
+        public Guid PersonaId { get; set; }
+        
         [JsonIgnore]
-        public Persona Persona { get; set; }
+        public Persona? Persona { get; set; }
 
         public Account()
         {

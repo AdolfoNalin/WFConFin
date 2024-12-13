@@ -106,7 +106,7 @@
   },
   {
     "ContainingType": "WFConFin.Controllers.AccountController",
-    "Method": "GetSmartName",
+    "Method": "GetSmartDescription",
     "RelativePath": "api/Account/search",
     "HttpMethod": "GET",
     "IsController": true,

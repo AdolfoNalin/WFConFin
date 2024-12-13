@@ -16,19 +16,18 @@ namespace WFConFin.Controllers
             _context = context;
         }
 
-        #region GetName
-        [HttpGet("{name}")]
-        public async Task<IActionResult> GetSigla([FromRoute] string name)
+        #region GetId
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetName([FromRoute] Guid id)
         {
             try
             {
-                name = name.ToUpper();
-                Persona persona = await _context.Persona.FindAsync(name) ?? throw new NullReferenceException($"Pessoa com o nome {name} não existe no banco de dados");
+                Persona persona = await _context.Persona.FindAsync(id) ?? throw new NullReferenceException($"Pessoa com o id {id} não existe no banco de dados");
                 return Ok(persona);
             }
             catch (NullReferenceException ne)
             {
-                return BadRequest(ne.Message);
+                return NotFound(ne.Message); 
             }
             catch (Exception ex)
             {

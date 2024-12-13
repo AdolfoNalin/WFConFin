@@ -9,7 +9,7 @@ using WFConFin.Models;
 namespace WFConFin.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class UserController : Controller
     {
         private readonly WFConFinDbContext _context;
@@ -18,7 +18,7 @@ namespace WFConFin.Controllers
         {
             _context = context;
         }
-
+            
         #region GetName
         [HttpGet("{name}")]
         public async Task<IActionResult> GetName([FromRoute] string name)
@@ -26,7 +26,11 @@ namespace WFConFin.Controllers
             try
             {
                 name = name.ToUpper();
-                return Ok(await _context.User.FindAsync(name) ?? throw new NullReferenceException("Usuário não existe no banco de dados"));
+
+                var users = from u in await _context.User.ToListAsync() where u.Name.ToUpper().Contains(name) select u;
+                _ = users.FirstOrDefault() ?? throw new NullReferenceException("Nenhum usuário encontrado");
+
+                return Ok(users);
             }
             catch (NullReferenceException ne)
             {
@@ -164,7 +168,7 @@ namespace WFConFin.Controllers
 
                 if (value == 1)
                 {
-                    return Ok("Usuário foi cadastrado com sucesso!");
+                    return Ok("Usuário foi atualizado com sucesso!");
                 }
                 else
                 {

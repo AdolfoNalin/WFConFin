@@ -1,8 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.HttpLogging;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
+using System.Text;
 using WFConFin.Data;
 using WFConFin.Models;
 
@@ -19,8 +23,41 @@ namespace WFConFin.Controllers
             _context = context;
         }
 
+        #region Login
+        [HttpGet("Login")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Login([FromQuery] string login, [FromQuery] string userPassword)
+        {
+            try
+            {
+                login = login.ToUpper();
+                userPassword = userPassword.ToUpper();
+
+                string hashPassword = GeneratePassword(userPassword);
+
+                var users = await _context.User.Where<User>(u => u.Login.ToUpper().Contains(login) && 
+                                                        u.Password.ToUpper().Contains(hashPassword)).ToListAsync() ??
+                                                        throw new NullReferenceException("Login não realizado. Por favor verifique a senha ou o login");
+                
+                User user = users.First(u => u.Login.ToUpper().Contains(login) && u.Password.Contains(hashPassword));
+
+                return Ok($"Seja bem vindo {user.Name}");
+            }
+            catch(NullReferenceException ne)
+            {
+                return NotFound(ne.Message);
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(ex.Message);
+                throw;
+            }
+        }
+        #endregion
+
         #region GetAll
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Get()
         {
             try
@@ -36,11 +73,23 @@ namespace WFConFin.Controllers
 
         #region Post
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Post([FromBody] User user)
         {
             try
             {
-                if (!ModelState.IsValid)
+                user.Login = user.Login.ToUpper();
+                user.Password = user.Password.ToUpper(); 
+
+                var hashPassword = GeneratePassword(user.Password);
+
+                var users = await _context.User.Where<User>(u => u.Login.ToUpper().Contains(user.Login)).ToListAsync();
+
+                if(users.Count() > 0)
+                {
+                    return BadRequest("Login do usuário já é existente");
+                }
+                else if (!ModelState.IsValid)
                 {
                     return BadRequest(ModelState);
                 }
@@ -70,6 +119,7 @@ namespace WFConFin.Controllers
 
         #region Put
         [HttpPut]
+        [Authorize]
         public async Task<IActionResult> Put([FromBody] User user)
         {
             try
@@ -95,6 +145,7 @@ namespace WFConFin.Controllers
 
         #region Delete
         [HttpDelete]
+        [Authorize]
         public async Task<IActionResult> Delete([FromBody] User user)
         {
             try
@@ -115,6 +166,21 @@ namespace WFConFin.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+        #endregion
+    
+        #region HashPassword
+        private string GeneratePassword(string password)
+        {
+            string hashPassword;
+            using(SHA256 pass = SHA256.Create())
+            {
+                byte[] Bpassword = Encoding.UTF8.GetBytes(password);
+                byte[] bytePass = pass.ComputeHash(Bpassword);
+                hashPassword = BitConverter.ToString(bytePass).Replace("-",".").ToLower();
+            }
+
+            return hashPassword;
         }
         #endregion
     }

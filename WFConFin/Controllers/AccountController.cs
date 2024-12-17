@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Localization;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Update;
@@ -22,6 +23,7 @@ namespace WFConFin.Controllers
 
         #region GetPagination
         [HttpGet("Pagination")]
+        [Authorize]
         public async Task<IActionResult> GetPagination([FromQuery] string value, int skip, int take, bool desc)
         {
             try
@@ -65,6 +67,7 @@ namespace WFConFin.Controllers
 
         #region GetSmartDescription
         [HttpGet("search")]
+        [Authorize]
         public async Task<IActionResult> GetSmartDescription([FromQuery] string value)
         {
             try
@@ -88,6 +91,7 @@ namespace WFConFin.Controllers
 
         #region GetId
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<IActionResult> GetId([FromRoute] Guid id)
         {
             try
@@ -109,6 +113,7 @@ namespace WFConFin.Controllers
 
         #region GetAll
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAll()
         {
             try
@@ -124,6 +129,7 @@ namespace WFConFin.Controllers
 
         #region Post
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Post([FromBody] Account account)
         {
             try
@@ -162,6 +168,7 @@ namespace WFConFin.Controllers
 
         #region Put
         [HttpPut]
+        [Authorize]
         public async Task<IActionResult> Put([FromBody] Account account)
         {
             try
@@ -200,6 +207,7 @@ namespace WFConFin.Controllers
 
         #region Delete
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             try

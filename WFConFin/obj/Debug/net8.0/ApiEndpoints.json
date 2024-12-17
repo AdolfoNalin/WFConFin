@@ -543,63 +543,16 @@
   },
   {
     "ContainingType": "WFConFin.Controllers.UserController",
-    "Method": "GetName",
-    "RelativePath": "api/User/{name}",
-    "HttpMethod": "GET",
+    "Method": "Login",
+    "RelativePath": "api/User/Login",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "name",
-        "Type": "System.String",
+        "Name": "login",
+        "Type": "WFConFin.Models.UserLogin",
         "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "WFConFin.Controllers.UserController",
-    "Method": "GetNameSmart",
-    "RelativePath": "api/User/Name",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "value",
-        "Type": "System.String",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "WFConFin.Controllers.UserController",
-    "Method": "GetPagination",
-    "RelativePath": "api/User/Pagination",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "value",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "skip",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "take",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "desc",
-        "Type": "System.Boolean",
-        "IsRequired": false
       }
     ],
     "ReturnTypes": []

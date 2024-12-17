@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using System.Reflection.Metadata.Ecma335;
@@ -10,6 +11,7 @@ namespace WFConFin.Controllers
 {
     [ApiController]
     [Route("api/[Controller]")]
+    [Authorize]
     public class StateController : Controller
     { 
         private readonly WFConFinDbContext _context;

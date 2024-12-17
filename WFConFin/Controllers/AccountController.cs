@@ -12,6 +12,7 @@ namespace WFConFin.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class AccountController : Controller
     {
         private WFConFinDbContext _context;

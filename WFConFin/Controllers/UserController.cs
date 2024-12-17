@@ -9,39 +9,57 @@ using System.Security.Cryptography;
 using System.Text;
 using WFConFin.Data;
 using WFConFin.Models;
+using WFConFin.Services;
 
 namespace WFConFin.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class UserController : Controller
     {
         private readonly WFConFinDbContext _context;
+        private readonly TokenService _tokenService;
 
-        public UserController(WFConFinDbContext context)
+        public UserController(WFConFinDbContext context, TokenService tokenService)
         {
+            _tokenService = tokenService;
             _context = context;
         }
 
         #region Login
-        [HttpGet("Login")]
+        [HttpPost("Login")]
         [AllowAnonymous]
-        public async Task<IActionResult> Login([FromQuery] string login, [FromQuery] string userPassword)
+        public async Task<IActionResult> Login([FromBody] UserLogin login)
         {
             try
             {
-                login = login.ToUpper();
-                userPassword = userPassword.ToUpper();
+                login.Login = login.Login.ToUpper();
 
-                string hashPassword = GeneratePassword(userPassword);
+                string hashPassword = GeneratePassword(login.Password);
 
-                var users = await _context.User.Where<User>(u => u.Login.ToUpper().Contains(login) && 
-                                                        u.Password.ToUpper().Contains(hashPassword)).ToListAsync() ??
+                User user = await _context.User.Where<User>(u => u.Login.ToUpper().Contains(login.Login)).FirstOrDefaultAsync() ??
                                                         throw new NullReferenceException("Login não realizado. Por favor verifique a senha ou o login");
-                
-                User user = users.First(u => u.Login.ToUpper().Contains(login) && u.Password.Contains(hashPassword));
 
-                return Ok($"Seja bem vindo {user.Name}");
+                if(!user.Password.Equals(hashPassword))
+                {
+                    throw new InvalidOperationException("Senha incorreta");
+                }
+
+                var token = _tokenService.GenerateToken(user);
+                user.Password = "";
+
+                var result = new UserResponse
+                {
+                    User = user,
+                    Token = token
+                };
+
+                return Ok(result);
+            }
+            catch(InvalidOperationException ip)
+            {
+                return BadRequest(ip.Message);
             }
             catch(NullReferenceException ne)
             {
@@ -57,7 +75,7 @@ namespace WFConFin.Controllers
 
         #region GetAll
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Gerente, Empregado, Operador")]
         public async Task<IActionResult> Get()
         {
             try
@@ -73,7 +91,7 @@ namespace WFConFin.Controllers
 
         #region Post
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Gerente, Empregado")]
         public async Task<IActionResult> Post([FromBody] User user)
         {
             try
@@ -81,7 +99,7 @@ namespace WFConFin.Controllers
                 user.Login = user.Login.ToUpper();
                 user.Password = user.Password.ToUpper(); 
 
-                var hashPassword = GeneratePassword(user.Password);
+                user.Password = GeneratePassword(user.Password);
 
                 var users = await _context.User.Where<User>(u => u.Login.ToUpper().Contains(user.Login)).ToListAsync();
 
@@ -119,7 +137,7 @@ namespace WFConFin.Controllers
 
         #region Put
         [HttpPut]
-        [Authorize]
+        [Authorize(Roles = "Gerente, Empregado")]
         public async Task<IActionResult> Put([FromBody] User user)
         {
             try
@@ -145,7 +163,7 @@ namespace WFConFin.Controllers
 
         #region Delete
         [HttpDelete]
-        [Authorize]
+        [Authorize(Roles = "Gerente")]
         public async Task<IActionResult> Delete([FromBody] User user)
         {
             try

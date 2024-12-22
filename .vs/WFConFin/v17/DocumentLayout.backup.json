@@ -3,8 +3,12 @@
   "WorkspaceRootPath": "D:\\Users\\repos\\WFConFin\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{89BB371E-678E-4A8E-BA0F-D60F95E3047E}|WFConFin\\WFConFin.csproj|d:\\users\\repos\\wfconfin\\wfconfin\\controllers\\citycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{89BB371E-678E-4A8E-BA0F-D60F95E3047E}|WFConFin\\WFConFin.csproj|solutionrelative:wfconfin\\controllers\\citycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{89BB371E-678E-4A8E-BA0F-D60F95E3047E}|WFConFin\\WFConFin.csproj|d:\\users\\repos\\wfconfin\\wfconfin\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{89BB371E-678E-4A8E-BA0F-D60F95E3047E}|WFConFin\\WFConFin.csproj|solutionrelative:wfconfin\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{89BB371E-678E-4A8E-BA0F-D60F95E3047E}|WFConFin\\WFConFin.csproj|d:\\users\\repos\\wfconfin\\wfconfin\\models\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{89BB371E-678E-4A8E-BA0F-D60F95E3047E}|WFConFin\\WFConFin.csproj|solutionrelative:wfconfin\\models\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -21,20 +25,29 @@
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Account.cs",
+              "DocumentMoniker": "D:\\Users\\repos\\WFConFin\\WFConFin\\Models\\Account.cs",
+              "RelativeDocumentMoniker": "WFConFin\\Models\\Account.cs",
+              "ToolTip": "D:\\Users\\repos\\WFConFin\\WFConFin\\Models\\Account.cs",
+              "RelativeToolTip": "WFConFin\\Models\\Account.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-22T18:59:33.462Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "CityController.cs",
-              "DocumentMoniker": "D:\\Users\\repos\\WFConFin\\WFConFin\\Controllers\\CityController.cs",
-              "RelativeDocumentMoniker": "WFConFin\\Controllers\\CityController.cs",
-              "ToolTip": "D:\\Users\\repos\\WFConFin\\WFConFin\\Controllers\\CityController.cs",
-              "RelativeToolTip": "WFConFin\\Controllers\\CityController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAOAAAAAAAAAA==",
+              "Title": "UserController.cs",
+              "DocumentMoniker": "D:\\Users\\repos\\WFConFin\\WFConFin\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "WFConFin\\Controllers\\UserController.cs",
+              "ToolTip": "D:\\Users\\repos\\WFConFin\\WFConFin\\Controllers\\UserController.cs",
+              "RelativeToolTip": "WFConFin\\Controllers\\UserController.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAACgAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-16T23:57:40.801Z",
+              "WhenOpened": "2024-12-17T23:19:10.643Z",
               "EditorCaption": ""
             }
           ]

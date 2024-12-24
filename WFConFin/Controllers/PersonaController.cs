@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using WFConFin.Data;
 using WFConFin.Models;
 
@@ -65,15 +66,19 @@ namespace WFConFin.Controllers
 
         #region GetPersonaPagination
         [HttpGet("Pagination")]
-        public async Task<IActionResult> GetPersonaPagination([FromQuery] string value, int skip, int take, bool desc)
+        public async Task<IActionResult> GetPersonaPagination([FromQuery] string? value, int skip, int take, bool desc)
         {
             try
             {
-                value = value.ToUpper();
 
-                var persona = from o in await _context.Persona.ToListAsync()
-                              where o.Name.ToUpper().Contains(value) || o.Email.ToUpper().Contains(value)
-                              select o;
+                var persona = from o in await _context.Persona.ToListAsync() select o;
+
+                if(value.IsNullOrEmpty())
+                {
+                    value = value.ToUpper();
+                    persona = from o in persona where o.Name.ToUpper().Contains(value) || o.Email.ToUpper().Contains(value)
+                    select o;
+                }
 
                 _ = persona.FirstOrDefault() ?? throw new NullReferenceException($"Pessoa não existe no banco de dados");
 
@@ -88,7 +93,7 @@ namespace WFConFin.Controllers
 
                 int amount = persona.Count();
 
-                persona = persona.Skip(skip).Take(take).ToList();
+                persona = persona.Skip((--skip) * take).Take(take).ToList();
 
                 var pr = new PaginationResponse<Persona>(persona, amount, skip, take);
 

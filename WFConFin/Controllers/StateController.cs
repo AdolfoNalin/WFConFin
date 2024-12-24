@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System.Linq.Expressions;
 using System.Reflection.Metadata.Ecma335;
 using System.Resources;
+using System.Xml.Linq;
 using WFConFin.Data;
 using WFConFin.Models;
 
@@ -73,20 +75,24 @@ namespace WFConFin.Controllers
 
         #region GetSiglaPagination
         [HttpGet("Pagination")]
-        public async  Task<IActionResult> GetStatePagination([FromQuery] string value, int skip, int take, bool desc)
+        public async  Task<IActionResult> GetStatePagination([FromQuery] string? value, int skip, int take, bool desc)
         {
             try
             {
-                value = value.ToUpper();
-
+                
                 //Entity
                 //var state = _context.State.Where(s => s.Name.ToUpper().Contains(value) || s.Sigla.ToUpper().Contains(value)).ToList();
 
                 //Query criteria
-                var state = from o in await _context.State.ToListAsync()
-                           where o.Name.ToUpper().Contains(value) || o.Sigla.ToUpper().Contains(value)
-                           select o;
+                var state = from o in await _context.State.ToListAsync() select o;
 
+                if(!value.IsNullOrEmpty())
+                {
+                    value = value.ToUpper();
+                    state = from o in state where o.Name.ToUpper().Contains(value) || o.Sigla.ToUpper().Contains(value)
+                           select o;
+                }
+                           
                 //Expression
                 /*Expression<Func<State, bool>> stateExpression = o => true;
                 stateExpression = o => o.Name.ToUpper().Contains(value) || o.Sigla.ToUpper().Contains(value);*/
@@ -106,7 +112,7 @@ namespace WFConFin.Controllers
 
                 int amount = state.Count();
 
-                state = state.Skip(skip).Take(take).ToList();
+                state = state.Skip((--skip) * take).Take(take).ToList();
 
                 var pr = new PaginationResponse<State>(state, amount, skip, take);
 

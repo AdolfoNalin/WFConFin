@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Update;
+using Microsoft.IdentityModel.Tokens;
 using System.Collections.Immutable;
 using System.Data;
 using WFConFin.Data;
@@ -25,32 +26,38 @@ namespace WFConFin.Controllers
         #region GetPagination
         [HttpGet("Pagination")]
         [Authorize]
-        public async Task<IActionResult> GetPagination([FromQuery] string value, int skip, int take, bool desc)
+        public async Task<IActionResult> GetPagination([FromQuery] string? value, int skip, int take, bool desc)
         {
             try
             {
-                value = value.ToUpper();
+               
 
-                var persona = from o in await _context.Account.ToListAsync()
+                var account = from o in await _context.Account.ToListAsync() select o;
+
+                if(!value.IsNullOrEmpty())
+                {
+                    value = value.ToUpper();
+                    account = from o in account
                               where o.Description.ToUpper().Contains(value) 
-                              select o;
+                      select o;
+                }
 
-                _ = persona.FirstOrDefault() ?? throw new NullReferenceException($"Contas não existe no banco de dados");
+                _ = account.FirstOrDefault() ?? throw new NullReferenceException($"Contas não existe no banco de dados");
 
                 if (desc)
                 {
-                    persona = from o in persona orderby o.Description descending select o;
+                    account = from o in account orderby o.Description descending select o;
                 }
                 else
                 {
-                    persona = from o in persona orderby o.Description ascending select o;
+                    account = from o in account orderby o.Description ascending select o;
                 }
 
-                int amount = persona.Count();
+                int amount = account.Count();
 
-                persona = persona.Skip(skip).Take(take).ToList();
+                account = account.Skip((--skip) * take).Take(take).ToList();
 
-                var pr = new PaginationResponse<Account>(persona, amount, skip, take);
+                var pr = new PaginationResponse<Account>(account, amount, skip, take);
 
                 return Ok(pr);
             }

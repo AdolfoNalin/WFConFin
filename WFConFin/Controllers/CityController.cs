@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using WFConFin.Data;
 using WFConFin.Models;
 
@@ -57,15 +58,18 @@ namespace WFConFin.Controllers
 
         #region GetSiglaPagination
         [HttpGet("Pagination")]
-        public async Task<IActionResult> GetCityPagination([FromQuery] string value, int skip, int take, bool desc)
+        public async Task<IActionResult> GetCityPagination([FromQuery] string? value, int skip, int take, bool desc)
         {
             try
             {
-                value = value.ToUpper();
+                var city = from o in await _context.City.ToListAsync() select o;
 
-                var city = from o in await _context.City.ToListAsync()
-                            where o.Name.ToUpper().Contains(value) || o.StateSigla.ToUpper().Contains(value)
-                            select o;
+                if(value.IsNullOrEmpty())
+                {
+                    value = value.ToUpper();
+                    city = from o in city where o.Name.ToUpper().Contains(value) || o.StateSigla.ToUpper().Contains(value)
+                    select o;
+                }
 
                 _ = city.FirstOrDefault() ?? throw new NullReferenceException("City not found");
 
@@ -80,7 +84,7 @@ namespace WFConFin.Controllers
 
                 int amount = city.Count();
 
-                city = city.Skip(skip).Take(take).ToList();
+                city = city.Skip((--skip) * take).Take(take).ToList();
 
                 var pr = new PaginationResponse<City>(city, amount, skip, take);
 

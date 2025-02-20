@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.IdentityModel.Tokens;
+using System.Reflection.Metadata;
+using System.Xml.Serialization;
 using WFConFin.Data;
 using WFConFin.Models;
 
@@ -34,7 +37,7 @@ namespace WFConFin.Controllers
             }
         }
         #endregion
-
+        
         #region GetCityId
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCity([FromRoute] Guid id)
@@ -56,30 +59,30 @@ namespace WFConFin.Controllers
         }
         #endregion
 
-        #region GetSiglaPagination
+        #region GetCityPagination
         [HttpGet("Pagination")]
         public async Task<IActionResult> GetCityPagination([FromQuery] string? value, int skip, int take, bool desc)
         {
             try
             {
-                var city = from o in await _context.City.ToListAsync() select o;
-
-                if(value.IsNullOrEmpty())
-                {
-                    value = value.ToUpper();
-                    city = from o in city where o.Name.ToUpper().Contains(value) || o.StateSigla.ToUpper().Contains(value)
-                    select o;
-                }
+                var city = await _context.City.ToListAsync();
 
                 _ = city.FirstOrDefault() ?? throw new NullReferenceException("City not found");
 
+                if(!value.IsNullOrEmpty())
+                {
+                    value = value.ToUpper();
+                    city =  city.Where(o => o.Name.ToUpper().Contains(value) || o.StateSigla.ToUpper().Contains(value)).ToList();
+                }
+
+
                 if (desc)
                 {
-                    city = from o in city orderby o.Name descending select o;
+                    city = city.OrderByDescending(c => c.Name).ToList();
                 }
                 else
                 {
-                    city = from o in city orderby o.Name ascending select o;
+                    city = city.OrderBy(c => c.Name).ToList();
                 }
 
                 int amount = city.Count();
@@ -130,6 +133,7 @@ namespace WFConFin.Controllers
         [HttpPost]
         public async Task<IActionResult> PostCity([FromBody] City city)
         {
+            
             try
             {
                 if (!ModelState.IsValid)
@@ -139,6 +143,7 @@ namespace WFConFin.Controllers
 
                 city.StateSigla = city.StateSigla.ToUpper();
                 city.Name = city.Name.ToUpper();
+
                 await _context.City.AddAsync(city);
                 var value = await _context.SaveChangesAsync();
 
@@ -164,7 +169,10 @@ namespace WFConFin.Controllers
         {
             try
             {
-                City obj = await _context.City.FindAsync(city.Id) ?? throw new NullReferenceException("City not found");
+                if(city is null)
+                {
+                    throw new ArgumentNullException("Cidade Não pode ser nula");
+                }
 
                 _context.City.Update(city);
                 int value = await _context.SaveChangesAsync();
@@ -177,6 +185,10 @@ namespace WFConFin.Controllers
                 {
                     return BadRequest("Problem: City don't Updated");
                 }
+            }
+            catch(ArgumentNullException ae)
+            {
+                return NotFound(ae.Message);
             }
             catch (Exception ex)
             {

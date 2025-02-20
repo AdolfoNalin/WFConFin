@@ -30,8 +30,6 @@ namespace WFConFin.Controllers
         {
             try
             {
-               
-
                 var account = from o in await _context.Account.ToListAsync() select o;
 
                 if(!value.IsNullOrEmpty())

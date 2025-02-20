@@ -40,7 +40,7 @@ namespace WFConFin.Controllers
         }
         #endregion
 
-        #region GetSiglaSmart
+        #region GetSmart
         [HttpGet("Search")]
         public async Task<IActionResult> GetSiglaSeach([FromQuery] string value)
         {
@@ -49,20 +49,8 @@ namespace WFConFin.Controllers
                 value = value.ToUpper();
 
                 //Entity
-                var state = await _context.State.Where(s => s.Name.ToUpper().Contains(value) || s.Sigla.ToUpper().Contains(value)).ToListAsync();
-
-                /*Query criteria
-                var list = from o in _context.State.ToList()
-                           where o.Name.ToUpper().Contains(value) || o.Sigla.ToUpper().Contains(value)
-                           select o;*/
-
-                //Expression
-                /*Expression<Func<State, bool>> stateExpression = o => true;
-                stateExpression = o => o.Name.ToUpper().Contains(value) || o.Sigla.ToUpper().Contains(value);
-
-                List<State> state = _context.State.Where(stateExpression).ToList();*/
-
-                _ = state.FirstOrDefault() ?? throw new NullReferenceException($"Estado não existe no banco de dados");
+                var state = await _context.State.Where(s => s.Name.ToUpper().Contains(value) || s.Sigla.ToUpper().Contains(value)).OrderBy(s => s.Name).ToListAsync<State>() 
+                    ?? throw new NullReferenceException($"Estado não existe no banco de dados");
 
                 return Ok(state);
             }
@@ -73,41 +61,29 @@ namespace WFConFin.Controllers
         }
         #endregion
 
-        #region GetSiglaPagination
+        #region GetPagination
         [HttpGet("Pagination")]
         public async  Task<IActionResult> GetStatePagination([FromQuery] string? value, int skip, int take, bool desc)
         {
             try
             {
-                
-                //Entity
-                //var state = _context.State.Where(s => s.Name.ToUpper().Contains(value) || s.Sigla.ToUpper().Contains(value)).ToList();
-
-                //Query criteria
-                var state = from o in await _context.State.ToListAsync() select o;
-
-                if(!value.IsNullOrEmpty())
-                {
-                    value = value.ToUpper();
-                    state = from o in state where o.Name.ToUpper().Contains(value) || o.Sigla.ToUpper().Contains(value)
-                           select o;
-                }
-                           
-                //Expression
-                /*Expression<Func<State, bool>> stateExpression = o => true;
-                stateExpression = o => o.Name.ToUpper().Contains(value) || o.Sigla.ToUpper().Contains(value);*/
-
-                //var state = _context.State.Where(stateExpression).ToList();
+                var state = await _context.State.ToListAsync();
 
                 _ = state.FirstOrDefault() ?? throw new NullReferenceException($"Estado não existe no banco de dados");
 
+                if (!value.IsNullOrEmpty())
+                {
+                    //value = value.ToUpper();
+                    state = state.Where(s => s.Name.ToUpper().Contains(value) || s.Sigla.ToUpper().Contains(value)).ToList();
+                }
+
                 if (desc)
                 {
-                    state = from o in state orderby o.Name descending select o;
+                    state = state.OrderByDescending(s => s.Name).ToList();
                 }
                 else
                 {
-                    state = from o in state orderby o.Name ascending select o;
+                    state = state.OrderBy(s => s.Name).ToList();
                 }
 
                 int amount = state.Count();
@@ -117,6 +93,10 @@ namespace WFConFin.Controllers
                 var pr = new PaginationResponse<State>(state, amount, skip, take);
 
                 return Ok(pr);
+            }
+            catch (NullReferenceException ne)
+            {
+                return NotFound(ne.Message);
             }
             catch (Exception ex)
             {
@@ -131,7 +111,9 @@ namespace WFConFin.Controllers
         {
             try
             {
-                return Ok(await _context.State.OrderBy(s => s.Name).ToListAsync<State>());
+                List<State> list = new List<State>();
+                list = await _context.State.OrderBy(s => s.Name).ToListAsync();
+                return Ok(list);
             }
             catch (Exception ex)
             {

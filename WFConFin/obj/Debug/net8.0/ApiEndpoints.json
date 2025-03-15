@@ -67,7 +67,7 @@
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Int32",
+        "Type": "System.Guid",
         "IsRequired": true
       }
     ],
@@ -438,7 +438,7 @@
   },
   {
     "ContainingType": "WFConFin.Controllers.StateController",
-    "Method": "GetStatePagination",
+    "Method": "GetPagination",
     "RelativePath": "api/State/Pagination",
     "HttpMethod": "GET",
     "IsController": true,

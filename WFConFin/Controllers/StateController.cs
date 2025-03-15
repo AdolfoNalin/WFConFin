@@ -63,7 +63,7 @@ namespace WFConFin.Controllers
 
         #region GetPagination
         [HttpGet("Pagination")]
-        public async  Task<IActionResult> GetStatePagination([FromQuery] string? value, int skip, int take, bool desc)
+        public async  Task<IActionResult> GetPagination([FromQuery] string? value, int skip, int take, bool desc)
         {
             try
             {
@@ -71,6 +71,7 @@ namespace WFConFin.Controllers
 
                 _ = state.FirstOrDefault() ?? throw new NullReferenceException($"Estado não existe no banco de dados");
 
+               
                 if (!value.IsNullOrEmpty())
                 {
                     //value = value.ToUpper();

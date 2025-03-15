@@ -73,7 +73,7 @@ namespace WFConFin.Controllers
 
                 var persona = from o in await _context.Persona.ToListAsync() select o;
 
-                if(value.IsNullOrEmpty())
+                if(!value.IsNullOrEmpty())
                 {
                     value = value.ToUpper();
                     persona = from o in persona where o.Name.ToUpper().Contains(value) || o.Email.ToUpper().Contains(value)

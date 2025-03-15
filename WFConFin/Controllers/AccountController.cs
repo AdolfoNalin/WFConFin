@@ -214,27 +214,22 @@ namespace WFConFin.Controllers
         #region Delete
         [HttpDelete("{id}")]
         [Authorize]
-        public async Task<IActionResult> Delete([FromRoute] int id)
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             try
             {
-                if (id > 0)
+                Account account = await _context.Account.FindAsync(id) ?? throw new NullReferenceException("Conta não encontrada!");
+                _context.Account.Remove(account);
+                var value = await _context.SaveChangesAsync();
+
+                if (value == 1)
                 {
-                    Account account = await _context.Account.FindAsync(id) ?? throw new NullReferenceException("Conta não encontrada!");
-                    _context.Account.Remove(account);
-                    var value = await _context.SaveChangesAsync();
-
-                    if (value == 1)
-                    {
-                        return Ok("Conta deletada com sucesso!");
-                    }
-                    else
-                    {
-                        return BadRequest("A conta não foi deletada com sucesso!");
-                    }
+                    return Ok("Conta deletada com sucesso!");
                 }
-
-                return NotFound("Conta tem que ser maior que 0");
+                else
+                {
+                    return BadRequest("A conta não foi deletada com sucesso!");
+                }
 
             }
             catch (NullReferenceException ne)

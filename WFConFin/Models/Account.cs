@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace WFConFin.Models
 {
-    public enum Situation { Aberta, Paga }
+    public enum Situation { close, open }
     public class Account
     {
         [Key]
@@ -17,7 +17,7 @@ namespace WFConFin.Models
 
         [Required(ErrorMessage = "O campo valor é obrigatório")]
         [Column(TypeName = "decimal(18,2)")]
-        public decimal Velue { get; set; }
+        public float Value { get; set; }
 
         [Required(ErrorMessage = "O campo Data Vencimento é obrigatório")]
         [DataType(DataType.Date)]
